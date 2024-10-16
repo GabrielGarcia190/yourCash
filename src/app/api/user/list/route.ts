@@ -2,7 +2,7 @@ import { db } from "@/database/db";
 import { IResponseData } from "@/interfaces/IResponseDate";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { authOptions } from "../../auth/[...nextauth]/authOptions";
 
 export async function GET(req: Request) {
     try {
