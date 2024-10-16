@@ -11,7 +11,9 @@ type Button =
 
 export function LoginButton(props: Button) {
     return (
-        <div className="w-1/5 border border-1 py-2 rounded-md flex flex-row justify-center">
+        <button
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+            className="w-1/5 border border-1 py-2 rounded-md flex flex-row justify-center">
             <Image
                 src={props.Logo}
                 height={props.widht}
@@ -19,11 +21,9 @@ export function LoginButton(props: Button) {
                 alt="Botão de Login"
 
             />
-            <button
-             className="pl-2"
-                onClick={() => signIn(props.ProviderName.toLowerCase(), { callbackUrl: "/" })}>
+            <p className="pl-2">
                 Continuar com {props.ProviderName}
-            </button>
-        </div>
+            </p>
+        </button>
     )
 }
