@@ -3,7 +3,7 @@ import Image from "next/image";
 
 type Button =
     {
-        ProviderName: "GitHub" | "Google"
+        ProviderName: "gitHub" | "google"
         Logo: "/GithubLogo.svg" | "/GoogleLogo.svg"
         widht: number,
         height: number
@@ -12,7 +12,7 @@ type Button =
 export function LoginButton(props: Button) {
     return (
         <button
-            onClick={() => signIn("google", { callbackUrl: "/api/auth/login-callback" })}
+            onClick={() => signIn(props.ProviderName, { callbackUrl: "/api/auth/login-callback" })}
             className="w-1/5 border border-1 py-2 rounded-md flex flex-row justify-center items-center">
             <Image
                 src={props.Logo}

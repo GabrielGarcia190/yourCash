@@ -20,8 +20,8 @@ export default function Home() {
                     </span>
                 </h1>
                 <div className="flex flex-col gap-2 w-full items-center">
-                <LoginButton ProviderName="GitHub" Logo="/GithubLogo.svg" widht={20} height={20} />
-                <LoginButton ProviderName="Google" Logo="/GoogleLogo.svg" widht={30} height={30}/>
+                <LoginButton ProviderName="gitHub" Logo="/GithubLogo.svg" widht={20} height={20} />
+                <LoginButton ProviderName="google" Logo="/GoogleLogo.svg" widht={30} height={30}/>
                 </div>
                 <p className="text-center pt-60">
                     Seu nome, e-mail, e foto serão armazenados,<br />
