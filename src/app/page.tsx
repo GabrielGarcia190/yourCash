@@ -1,20 +1,23 @@
 "use client"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import PrivateRote from "./components/PrivateRote";
 import { ApiResponse, userResponseSchema } from "./schemas/userReponseSchema";
+import { useAuthenticated } from "@/hooks/useAuthenticated ";
+import Image from "next/image";
 
 export default function Home() {
-  const [data, setData] = useState<ApiResponse | null>(null);  // Usando o tipo inferido para a resposta da API
+  const isAuthenticated = useAuthenticated();
+  const [data, setData] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+
+
     axios.get('/api/user/list')
       .then((response) => {
-        // Validar os dados com o esquema Zod
         try {
-          const parsedData = userResponseSchema.parse(response.data);  // Valida e tipa os dados automaticamente
+          const parsedData = userResponseSchema.parse(response.data);
           setData(parsedData);
         } catch (validationError) {
           console.error("Erro de validação:", validationError);
@@ -35,14 +38,23 @@ export default function Home() {
   if (!data) return <p>Sem dados</p>;
 
   return (
-    <PrivateRote>
-      <div className="items-center justify-items-center min-h-screen sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        {data.data?.map((item, index) => (
-          <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-lg w-full max-w-md mb-4">
-            <h3 className="text-lg font-semibold">{item.name}</h3>
-            <p className="text-sm text-gray-700">Autor: {item.email}</p>
+    <div className="items-center justify-items-center min-h-screen sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      {data.data?.map((item, index) => (
+        <div key={index} className="flex flex-row bg-gray-100 p-4 rounded-lg shadow-lg w-full max-w-md mb-4">
+          <div className="w-1/6 pr-2 flex items-center justify-center rounded-full">
+            <img
+              src={item.imageUrl ?? ""}
+              width={100}
+              height={100}
+              alt="Imagem de perfil"
+              className="rounded-full"
+            />
+          </div>
+          <div className="">
+            <h3 className="text-lg font-semibold">Nome: {item.name}</h3>
+            <p className="text-sm text-gray-700">Email: {item.email}</p>
             <p className="text-sm text-gray-500 mt-2">
-              Criado em: 
+              Criado em:
               <span className="pl-1"></span>
               {new Date(item.createdAt).toLocaleString('pt-BR', {
                 year: 'numeric',
@@ -53,8 +65,9 @@ export default function Home() {
               })}
             </p>
           </div>
-        ))}
-      </div>
-    </PrivateRote>
+        </div>
+
+      ))}
+    </div>
   );
 }

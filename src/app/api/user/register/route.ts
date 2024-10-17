@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
+        console.log("=a=a=a=a=a=a=a=a=")
+
         const body = await req.json();
         const userData = createUserSchema.parse(body);
 
@@ -14,10 +16,10 @@ export async function POST(req: Request) {
 
         if (existingUser) {
             return NextResponse.json({
-                success: false,
+                success: true,
                 data: null,
-                message: "Usuário já existe com este e-mail.",
-            } as IResponseData, { status: 400 });
+                message: "Usuário já está cadastrado",
+            } as IResponseData, { status: 200 });
         }
 
         const newUser = await db.user.create({
