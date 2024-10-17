@@ -6,6 +6,7 @@ import { IResponseData } from "@/interfaces/IResponseDate";
 
 export async function GET(req: Request) {
   try {
+    console.log("passei aqui")
     const session = await getServerSession(authOptions);
 
     if (!session) {
@@ -35,7 +36,7 @@ export async function GET(req: Request) {
   } catch (error) {
     return NextResponse.json({
       success: false,
-      message: "Erro ao processar a solicitação.",
+      message: "Erro ao processar a solicitação." + error,
       error: String(error),
     } as IResponseData, { status: 500 });
   }
